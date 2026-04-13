@@ -1,4 +1,4 @@
-# 🏥 Hospital FAQ Chatbot
+# 🏥 Hospital FAQ Chatbot Project by Shweta Pandya
 
 This project is a domain-specific chatbot designed to answer frequently asked questions related to hospital services.
 
