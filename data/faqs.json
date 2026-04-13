@@ -1,0 +1,22 @@
+[
+  {"question": "What are the hospital timings?", "answer": "The hospital is open from 8 AM to 10 PM."},
+  {"question": "Is emergency service available?", "answer": "Yes, emergency services are available 24/7."},
+  {"question": "How can I book an appointment?", "answer": "You can book an appointment online or call our reception."},
+  {"question": "Do you provide ambulance services?", "answer": "Yes, ambulance service is available 24 hours."},
+  {"question": "What departments are available?", "answer": "We have cardiology, orthopedics, pediatrics, and general medicine."},
+  {"question": "Do you have ICU facilities?", "answer": "Yes, ICU facilities are available."},
+  {"question": "What payment methods are accepted?", "answer": "We accept cash, debit cards, credit cards, and UPI."},
+  {"question": "Do you accept insurance?", "answer": "Yes, we accept most health insurance plans."},
+  {"question": "Where is the hospital located?", "answer": "The hospital is located in the city center."},
+  {"question": "Is there a pharmacy in the hospital?", "answer": "Yes, a pharmacy is available inside the hospital."},
+  {"question": "What are visiting hours?", "answer": "Visiting hours are from 4 PM to 7 PM."},
+  {"question": "Do you provide online consultation?", "answer": "Yes, online consultation is available."},
+  {"question": "How can I contact the hospital?", "answer": "You can call us or email us at hospital@example.com."},
+  {"question": "Are specialist doctors available?", "answer": "Yes, we have experienced specialist doctors."},
+  {"question": "Do you have diagnostic services?", "answer": "Yes, we provide lab tests and imaging services."},
+  {"question": "Is parking available?", "answer": "Yes, parking is available for patients and visitors."},
+  {"question": "Do you provide maternity services?", "answer": "Yes, maternity services are available."},
+  {"question": "Can I cancel my appointment?", "answer": "Yes, appointments can be cancelled by contacting reception."},
+  {"question": "Do you provide vaccination services?", "answer": "Yes, vaccination services are available."},
+  {"question": "Is the hospital open on weekends?", "answer": "Yes, the hospital is open on weekends."}
+]

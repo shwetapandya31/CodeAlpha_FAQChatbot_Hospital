@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CareAssist - Hospital FAQ Chatbot</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">
+        <div class="header-icon">
+            <i class="fa-solid fa-hospital-user"></i>
+        </div>
+        <div class="header-info">
+            <span class="header-title">CareAssist AI</span>
+            <span class="header-status"><span class="status-dot"></span> Online</span>
+        </div>
+    </div>
+
+    <div id="chat-box">
+        <!-- Messages will be injected here -->
+    </div>
+
+    <div class="input-area">
+        <div class="input-wrapper">
+            <input type="text" id="user-input" placeholder="Type your health question..." autocomplete="off">
+        </div>
+        <button onclick="sendMessage()" title="Send Message">
+            <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+function getCurrentTime() {
+    const now = new Date();
+    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function createMessageHTML(type, text, timeInfo) {
+    let isUser = type === 'user';
+    let wrapperClass = isUser ? 'user-wrapper' : 'bot-wrapper';
+    let avatarClass = isUser ? 'user-avatar' : 'bot-avatar';
+    let iconClass = isUser ? 'fa-user' : 'fa-robot';
+    
+    return `
+        <div class="message ${type} ${wrapperClass}">
+            <div class="avatar ${avatarClass}">
+                <i class="fa-solid ${iconClass}"></i>
+            </div>
+            <div class="msg-content">
+                <div class="msg-bubble">${text}</div>
+                <span class="timestamp">${timeInfo}</span>
+            </div>
+        </div>
+    `;
+}
+
+function addMessage(type, text) {
+    const chatBox = document.getElementById("chat-box");
+    const timeInfo = getCurrentTime();
+    const msgHTML = createMessageHTML(type, text, timeInfo);
+    
+    chatBox.insertAdjacentHTML("beforeend", msgHTML);
+    scrollToBottom();
+}
+
+function scrollToBottom() {
+    const chatBox = document.getElementById("chat-box");
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function showTypingIndicator() {
+    const chatBox = document.getElementById("chat-box");
+    
+    const indicatorHTML = `
+        <div class="message bot bot-wrapper" id="typing-indicator">
+            <div class="avatar bot-avatar">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+            <div class="msg-content">
+                <div class="msg-bubble dot-container">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    `;
+    chatBox.insertAdjacentHTML("beforeend", indicatorHTML);
+    scrollToBottom();
+}
+
+function hideTypingIndicator() {
+    const indicator = document.getElementById("typing-indicator");
+    if (indicator) {
+        indicator.remove();
+    }
+}
+
+// Welcome message
+window.onload = function() {
+    setTimeout(() => {
+        addMessage('bot', 'Hello! I am CareAssist, the hospital AI. How can I help you today?');
+    }, 500);
+};
+
+// Send message
+function sendMessage() {
+    let inputField = document.getElementById("user-input");
+    let input = inputField.value;
+
+    if (input.trim() === "") return;
+
+    // Display user message
+    addMessage('user', input);
+    inputField.value = "";
+    
+    // Show typing effect
+    showTypingIndicator();
+
+    fetch("/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({message: input})
+    })
+    .then(res => res.json())
+    .then(data => {
+        hideTypingIndicator();
+        addMessage('bot', data.response);
+    })
+    .catch(error => {
+        hideTypingIndicator();
+        addMessage('bot', "Sorry, I'm having trouble connecting to the server.");
+        console.error("Error:", error);
+    });
+}
+
+// Enter key support
+document.getElementById("user-input").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        sendMessage();
+    }
+});
+</script>
+
+</body>
+</html>
