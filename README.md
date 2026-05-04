@@ -14,8 +14,10 @@ This project is a domain-specific chatbot designed to answer frequently asked qu
 - NLTK (Natural Language Processing)
 - Scikit-learn (TF-IDF, Cosine Similarity)
 - HTML, CSS, JavaScript
-## Setup Instructions
+## Setup Instructions how to run
 Open your terminal or command prompt in this directory.
 Install the required dependencies by running:
+
 pip install -r requirements.txt
+
 app.py OR Click on run icon/symbol
